@@ -9,10 +9,8 @@ $person->name = 'John';
 $person->surname = 'Doe';
 $person->age = 30;
 
-function isOfAge($person) {
-    if ($person->age >=18) {
-        echo "$person->name has reached the age of 18.";
-    }
+function isOfAge(stdClass $person): bool {
+    return $person->age >=18;
 }
 
-isOfAge($person);
+echo isOfAge($person) ? "$person->name has reached the age of 18." : "$person->name has not reached the age of 18.";

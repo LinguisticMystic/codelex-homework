@@ -9,40 +9,45 @@
 $fruits = [
     [
         'type' => 'apples',
-        'weight' => 1
+        'weight' => 2
     ],
     [
         'type' => 'grapes',
-        'weight' => 0.2
-    ],
-    [
-        'type' => 'pears',
-        'weight' => 0.5
-    ],
-    [
-        'type' => 'watermelons',
         'weight' => 12
     ],
     [
+        'type' => 'pears',
+        'weight' => 30
+    ],
+    [
+        'type' => 'watermelons',
+        'weight' => 18
+    ],
+    [
         'type' => 'jack fruits',
-        'weight' => 15
+        'weight' => 50
     ]
 ];
 
 $shippingCosts = [
-    '<10' => 1,
-    '>10' => 2
+    10 => 1,
+    20 => 2,
+    30 => 3,
 ];
 
-function printShippingCosts($productArray, $shippingCosts) {
-    for ($i = 0; $i < count($productArray); $i++) {
-        if ($productArray[$i]['weight'] < 10) {
-            echo ucfirst("{$productArray[$i]['type']} weigh {$productArray[$i]['weight']} kg, and their shipping cost is {$shippingCosts['<10']} euro. \n");
-        }
-        if ($productArray[$i]['weight'] > 10) {
-            echo ucfirst("{$productArray[$i]['type']} weigh {$productArray[$i]['weight']} kg, and their shipping cost is {$shippingCosts['>10']} euros. \n");
+foreach ($fruits as $fruit) {
+
+    $price = 0;
+
+    foreach ($shippingCosts as $weight => $cost) {
+        if ($fruit['weight'] <= $weight) {
+            $price = $cost;
+            break;
+        } else {
+            $price = 4;
         }
     }
-}
 
-printShippingCosts($fruits, $shippingCosts);
+    echo ucfirst(sprintf('The shipping price for %s is %u euros.', $fruit['type'], $price)) . PHP_EOL;
+
+}

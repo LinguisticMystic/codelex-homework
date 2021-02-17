@@ -14,4 +14,4 @@ $person->name = 'Aija';
 $person->surname = 'Pastare';
 $person->age = 30;
 
-echo $person->name . ' ' . $person->surname . ' ' . $person->age;
+echo sprintf('My name is %s %s and I am %u years old.', $person->name, $person->surname, $person->age);

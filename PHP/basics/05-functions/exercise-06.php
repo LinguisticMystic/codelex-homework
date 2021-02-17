@@ -7,11 +7,9 @@
 
 $numbers = [2, 56, 8, 23.5, 'ice-hole'];
 
-function double($number) {
+function double(int $number): int {
     if (is_integer($number)) {
         return $number * 2;
-    } else {
-        return 'not an integer';
     }
 }
 

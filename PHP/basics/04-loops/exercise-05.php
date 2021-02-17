@@ -3,27 +3,28 @@
 //Create an associative array with objects of multiple persons.
 //Each person should have a name, surname, age and birthday. Using loop (by your choice) print out every persons personal data.
 
+class Person
+{
+    public string $name;
+    public string $surname;
+    public int $age;
+    public string $birthday;
+
+    public function __construct(string $name, string $surname, int $age, string $birthday)
+    {
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->age = $age;
+        $this->birthday = $birthday;
+    }
+}
+
 $persons = [
-    'anna' => $myFriend = new stdClass(),
-    'jesus' => $myHero = new stdClass(),
-    'janis' => $myNeighbor = new stdClass(),
+    'anna' => $myFriend = new Person('Anna', 'Dzērve', 24, '19 May, 1995'),
+    'jesus' => $myHero = new Person('Jesus', 'of Nazareth', 33, '24 December, 0'),
+    'janis' => $myNeighbor = new Person('Jānis','Bērziņš', 35, '14 June, 1985'),
 ];
 
-$myFriend->name = 'Anna';
-$myFriend->surname = 'Dzērve';
-$myFriend->age = 24;
-$myFriend->birthday = '19 May, 1995';
-
-$myHero->name = 'Jesus';
-$myHero->surname = 'of Nazareth';
-$myHero->age = 33;
-$myHero->birthday = '24 December, 0';
-
-$myNeighbor->name = 'Jānis';
-$myNeighbor->surname = 'Bērziņš';
-$myNeighbor->age = 35;
-$myNeighbor->birthday = '14 June, 1985';
-
 foreach ($persons as $person) {
-    echo "Name: $person->name $person->surname, Age: $person->age, Birthday: $person->birthday. \n";
+    echo "Name: $person->name $person->surname, Age: $person->age, Birthday: $person->birthday." . PHP_EOL;
 };
