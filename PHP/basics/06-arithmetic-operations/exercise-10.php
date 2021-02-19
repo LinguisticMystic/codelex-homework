@@ -61,7 +61,7 @@ if ($choice == 1) {
     if ($radius < 0) {
         echo 'Negative numbers not allowed.';
     } else {
-        echo 'The area of the circle is ' . Geometry::circleArea($radius);
+        echo sprintf('The area of the circle is %.2f', Geometry::circleArea($radius));
     }
 }
 

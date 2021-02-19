@@ -6,13 +6,15 @@
 function checkOddEven(int $number): string
 {
     if ($number % 2 == 0) {
-        return 'Even Number' . PHP_EOL . 'bye!';
+        return 'Even Number' . PHP_EOL;
     }
     if ($number % 2 == 1) {
-        return 'Odd Number' . PHP_EOL . 'bye!';
+        return 'Odd Number' . PHP_EOL;
     }
 }
 
 $number = readline('Enter number...');
 
 echo checkOddEven($number);
+
+exit('bye!');

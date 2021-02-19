@@ -20,13 +20,13 @@
 //Employee 2 	$8.20 	47
 //Employee 3 	$10.00 	73
 
-//$baseHours = 40;
-//$maxHours = 60;
-//$hourlyRate = 8;
-//$extraPay = 1.5;
-
 class Employee
 {
+    const baseHours = 40;
+    const maxHours = 60;
+    const hourlyRate = 8;
+    const extraPay = 1.5;
+
     public string $name;
     public float $basePay;
     public int $hoursWorked;
@@ -38,15 +38,17 @@ class Employee
         $this->hoursWorked = $hoursWorked;
     }
 
-    public function calculateWages() {
-        if ($this->basePay < 8) {
-            return 'ERROR';
-        }
-        if ($this->hoursWorked > 60) {
-            return 'ERROR';
-        }
-        if ($this->hoursWorked > 40) {
-            return ($this->basePay * 40) + ($this->basePay * ($this->hoursWorked - 40) * 1.5);
+    public function validatePay(): bool {
+        return $this->basePay < self::hourlyRate;
+    }
+
+    public function validateHours(): bool {
+        return $this->hoursWorked > self::maxHours;
+    }
+
+    public function calculateWages(): float {
+        if ($this->hoursWorked > self::baseHours) {
+            return ($this->basePay * self::baseHours) + ($this->basePay * ($this->hoursWorked - self::baseHours) * self::extraPay);
         } else {
             return $this->basePay * $this->hoursWorked;
         }
@@ -60,5 +62,9 @@ $employees = [
 ];
 
 foreach ($employees as $employee) {
-    echo "{$employee->name}'s salary: {$employee->calculateWages()}" . PHP_EOL;
+    if ($employee->validatePay() || $employee->validateHours()) {
+        echo "ERROR! {$employee->name}'s salary cannot be calculated." . PHP_EOL;
+    } else {
+        echo "{$employee->name}'s salary: {$employee->calculateWages()}" . PHP_EOL;
+    }
 }
