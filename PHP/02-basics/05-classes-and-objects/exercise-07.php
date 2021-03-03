@@ -41,7 +41,7 @@ class Dog
 
 class DogTest
 {
-    public array $dogs = [];
+    private array $dogs = [];
 
     public function addDog(Dog $dog): void
     {

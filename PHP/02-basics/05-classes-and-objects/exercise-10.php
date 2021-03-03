@@ -60,7 +60,7 @@ class Application
 class VideoStore
 {
     private string $name;
-    public array $inventory = [];
+    private array $inventory = [];
 
     public function __construct(string $name)
     {
