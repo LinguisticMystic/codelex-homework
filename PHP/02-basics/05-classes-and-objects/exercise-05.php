@@ -6,15 +6,11 @@ class Date
     private int $day;
     private int $year;
 
-    public function __construct(int $month, int $day, int $year)
-    {
-        $this->month = $month;
-        $this->day = $day;
-        $this->year = $year;
-    }
-
     public function setMonth(int $monthNumber): void
     {
+        if ($monthNumber < 0 || $monthNumber > 12) {
+            throw new InvalidArgumentException('Not a valid month');
+        }
         $this->month = $monthNumber;
     }
 
@@ -25,6 +21,9 @@ class Date
 
     public function setDay(int $dayNumber): void
     {
+        if ($dayNumber < 0) {
+            throw new InvalidArgumentException('Day cannot be negative');
+        }
         $this->day = $dayNumber;
     }
 
@@ -35,6 +34,9 @@ class Date
 
     public function setYear(int $yearNumber): void
     {
+        if ($yearNumber < 0) {
+            throw new InvalidArgumentException('Year cannot be negative');
+        }
         $this->year = $yearNumber;
     }
 
@@ -53,16 +55,38 @@ class DateTest
 {
     function run()
     {
+        $date = new Date();
+
         do {
             $month = readline('Enter month: ');
-        } while (!is_numeric($month) || $month > 0 || $month < 12);
+        } while (!filter_var($month, FILTER_VALIDATE_INT));
+
         do {
             $day = readline('Enter day: ');
-        } while (!is_numeric($day) || $day > 0);
+        } while (!filter_var($day, FILTER_VALIDATE_INT));
+
         do {
             $year = readline('Enter year: ');
-        } while (!is_numeric($year) || $year > 0);
-        $date = new Date($month, $day, $year);
+        } while (!filter_var($year, FILTER_VALIDATE_INT));
+
+        try {
+            $date->setMonth($month);
+        } catch (InvalidArgumentException $e) {
+            var_dump($e->getMessage());
+        }
+
+        try {
+            $date->setDay($day);
+        } catch (InvalidArgumentException $e) {
+            var_dump($e->getMessage());
+        }
+
+        try {
+            $date->setYear($year);
+        } catch (InvalidArgumentException $e) {
+            var_dump($e->getMessage());
+        }
+
         echo $date->displayDate();
     }
 }
