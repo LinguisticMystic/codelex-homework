@@ -1,22 +1,9 @@
 <?php
 
-//turbosalad missing: eggs, spinach
-//coolsalad missing:
-
 require_once 'Ingredient.php';
 require_once 'IngredientCollection.php';
 require_once 'Recipe.php';
 require_once 'RecipeCollection.php';
-
-do {
-    $numberOfIngredients = readline('Enter the number of ingredients: ');
-} while (!filter_var($numberOfIngredients, FILTER_VALIDATE_INT));
-
-$myIngredients = new IngredientCollection();
-
-for ($i = 1; $i <= $numberOfIngredients; $i++) {
-    $myIngredients->addIngredient(new Ingredient(readline("Enter ingredient $i: ")));
-}
 
 $myWonderfulRecipeBook = new RecipeCollection();
 
@@ -28,7 +15,15 @@ $myWonderfulRecipeBook->addRecipes([
     new Recipe('Anorexic\'s Choice', 'water', 'lemon')
 ]);
 
-$recipesThatCanBeMade = ($myIngredients->canBeUsedToMake($myWonderfulRecipeBook));
+do {
+    $numberOfIngredients = readline('Enter the number of ingredients: ');
+} while (!filter_var($numberOfIngredients, FILTER_VALIDATE_INT));
+
+$myIngredients = new IngredientCollection();
+
+for ($i = 1; $i <= $numberOfIngredients; $i++) {
+    $myIngredients->addIngredient(new Ingredient(readline("Enter ingredient $i: ")));
+}
 
 echo 'With these ingredients:' . PHP_EOL;
 
