@@ -13,23 +13,52 @@ class Movie
         $this->rating = $rating;
     }
 
-    public function getPG(array $movies): array
+    public function getTitle(): string
     {
-        return array_filter($movies, function (Movie $movie) {
-            return $movie->rating === 'PG';
+        return $this->title;
+    }
+
+    public function getRating(): string
+    {
+        return $this->rating;
+    }
+
+}
+
+class MovieCollection
+{
+    private array $movies = [];
+
+    public function addMovie(Movie $movie): void
+    {
+        $this->movies[] = $movie;
+    }
+
+    public function addMovieArray(array $movies): void
+    {
+        foreach ($movies as $movie) {
+            $this->addMovie($movie);
+        }
+    }
+
+    public function getPG(): array
+    {
+        return array_filter($this->movies, function (Movie $movie) {
+            return $movie->getRating() === 'PG';
         });
     }
 
 }
 
-$casinoRoyale = new Movie('Casino Royale', 'Eon Productions', 'PG­13');
-$glass = new Movie('Glass', 'Buena Vista International', 'PG­13');
-$spiderMan = new Movie('Spider-Man: Into the Spider-Verse', 'Columbia Pictures');
+$movieShelf = new MovieCollection();
 
-$movies = [
-    $casinoRoyale,
-    $glass,
-    $spiderMan
-];
+$movieShelf->addMovieArray([
+    new Movie('Casino Royale', 'Eon Productions', 'PG­13'),
+    new Movie('Glass', 'Buena Vista International', 'PG­13'),
+    new Movie('Spider-Man: Into the Spider-Verse', 'Columbia Pictures'),
+]);
 
-print_r($casinoRoyale->getPG($movies));
+echo 'PG rated movies:' . PHP_EOL;
+foreach ($movieShelf->getPG() as $movie) {
+    echo $movie->getTitle() . PHP_EOL;
+}

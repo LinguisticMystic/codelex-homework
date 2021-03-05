@@ -30,7 +30,7 @@ class Dog
 
     public function hasSameMotherAs(Dog $dog): bool
     {
-        if ($this->mother->name === $dog->mother->name) {
+        if ($this->mother === $dog->mother) {
             return true;
         } else {
             return false;
