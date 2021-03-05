@@ -29,7 +29,6 @@ $myWonderfulRecipeBook->addRecipes([
 ]);
 
 $recipesThatCanBeMade = ($myIngredients->canBeUsedToMake($myWonderfulRecipeBook));
-$availableIngredientNames = array_map(fn($item) => $item->getName(), $myIngredients->getIngredients());
 
 echo 'With these ingredients:' . PHP_EOL;
 
@@ -39,12 +38,12 @@ foreach ($myIngredients->getIngredients() as $index => $ingredient) {
 
 echo 'You can make the following recipes:' . PHP_EOL;
 
-foreach ($recipesThatCanBeMade as $index => $recipe) {
+foreach ($myIngredients->canBeUsedToMake($myWonderfulRecipeBook) as $index => $recipe) {
 
     echo "[$index] {$recipe->getName()}. [ Missing ingredients: ";
 
     foreach($recipe->getRecipeIngredients() as $requiredIngredient) {
-        if (!in_array($requiredIngredient, $availableIngredientNames)) {
+        if (!in_array($requiredIngredient, $myIngredients->getIngredientNames())) {
             echo $requiredIngredient . ' ';
         }
     }

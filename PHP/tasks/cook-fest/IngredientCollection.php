@@ -14,6 +14,11 @@ class IngredientCollection
         return $this->ingredients;
     }
 
+    public function getIngredientNames(): array
+    {
+        return array_map(fn($item) => $item->getName(), $this->ingredients);
+    }
+
     public function canBeUsedToMake(RecipeCollection $recipeBook): array
     {
         $canBeMade = [];
