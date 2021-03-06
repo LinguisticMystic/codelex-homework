@@ -2,38 +2,38 @@
 
 class SavingsAccount
 {
-    private float $annualInterestRate;
-    private float $balance;
+    private int $annualInterestRate;
+    private int $balance;
     private array $deposits = [];
     private array $withdrawals = [];
     private array $interestEarned = [];
 
-    public function __construct(float $balance)
+    public function __construct(int $balance)
     {
         $this->balance = $balance;
     }
 
-    public function getBalance(): float
+    public function getBalance(): int
     {
         return $this->balance;
     }
 
-    public function getTotalDeposited(): float
+    public function getTotalDeposited(): int
     {
         return array_sum($this->deposits);
     }
 
-    public function getTotalWithdrawn(): float
+    public function getTotalWithdrawn(): int
     {
         return array_sum($this->withdrawals);
     }
 
-    public function getTotalInterest(): float
+    public function getTotalInterest(): int
     {
         return array_sum($this->interestEarned);
     }
 
-    public function setAnnualInterestRate(float $amount): void
+    public function setAnnualInterestRate(int $amount): void
     {
         $this->annualInterestRate = $amount;
     }
@@ -44,7 +44,7 @@ class SavingsAccount
         $this->balance -= $amount;
     }
 
-    public function deposit(float $amount): void
+    public function deposit(int $amount): void
     {
         $this->deposits[] = $amount;
         $this->balance += $amount;
@@ -52,7 +52,7 @@ class SavingsAccount
 
     public function addMonthlyInterestRate(): void
     {
-        $monthlyInterestRate = ($this->annualInterestRate / 12);
+        $monthlyInterestRate = ($this->annualInterestRate / 12) * 0.01;
         $this->interestEarned[] = $monthlyInterestRate * $this->balance;
         $this->balance += $monthlyInterestRate * $this->balance;
     }
