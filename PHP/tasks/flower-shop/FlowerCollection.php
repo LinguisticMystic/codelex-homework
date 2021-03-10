@@ -21,4 +21,13 @@ class FlowerCollection
         }
     }
 
+    public function getAllFlowerNames(): array
+    {
+        $flowerNames = [];
+        foreach ($this->flowers as $flower) {
+            $flowerNames[] = $flower->getName();
+        }
+        return $flowerNames;
+    }
+
 }

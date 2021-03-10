@@ -67,13 +67,10 @@ echo PHP_EOL;
 $gender = readline('What is your gender (all genders welcome) ?...');
 $choiceFlower = readline('Enter the name of the flower to buy...');
 
-foreach ($myShop->getInventory()->getFlowers() as $flower) {
-    if ($choiceFlower === $flower->getName()) {
-        break;
-    } else {
-        exit('No such item in shop');
-    }
+if (!in_array($choiceFlower, $myShop->getInventory()->getAllFlowerNames())) {
+    exit('No such item in shop');
 }
+
 do {
     $choiceAmount = readline('Enter amount...');
 } while (!filter_var($choiceAmount, FILTER_VALIDATE_INT));
