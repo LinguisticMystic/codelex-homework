@@ -1,0 +1,9 @@
+{
+    "name": "aija/garage",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}
