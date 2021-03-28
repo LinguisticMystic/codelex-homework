@@ -4,13 +4,6 @@ namespace App\Models;
 
 use Medoo\Medoo;
 
-interface PersonsRepository
-{
-    public function addPerson(Person $person): void;
-    public function deletePerson(int $id): void;
-}
-
-
 class MySQLPersonsRepository implements PersonsRepository
 {
     private Medoo $database;
