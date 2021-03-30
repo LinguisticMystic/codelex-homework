@@ -21,17 +21,26 @@ $container = new League\Container\Container;
 
 $container->add(PersonsRepository::class, MySQLPersonsRepository::class);
 
-$container->add(AddPersonService::class, AddPersonService::class)->addArgument(PersonsRepository::class);
-$container->add(DeletePersonService::class, DeletePersonService::class)->addArgument(PersonsRepository::class);
-$container->add(EditPersonService::class, EditPersonService::class)->addArgument(PersonsRepository::class);
-$container->add(FindPersonByNameService::class, FindPersonByNameService::class)->addArgument(PersonsRepository::class);
-$container->add(FindPersonBySocialNumberService::class, FindPersonBySocialNumberService::class)->addArgument(PersonsRepository::class);
+$container->add(AddPersonService::class, AddPersonService::class)
+    ->addArgument(PersonsRepository::class);
+$container->add(DeletePersonService::class, DeletePersonService::class)
+    ->addArgument(PersonsRepository::class);
+$container->add(EditPersonService::class, EditPersonService::class)
+    ->addArgument(PersonsRepository::class);
+$container->add(FindPersonByNameService::class, FindPersonByNameService::class)
+    ->addArgument(PersonsRepository::class);
+$container->add(FindPersonBySocialNumberService::class, FindPersonBySocialNumberService::class)
+    ->addArgument(PersonsRepository::class);
 
 $container->add(HomeController::class, HomeController::class);
-$container->add(AddPersonController::class, AddPersonController::class)->addArgument(AddPersonService::class);
-$container->add(DeletePersonController::class, DeletePersonController::class)->addArgument(DeletePersonService::class);
-$container->add(EditPersonController::class, EditPersonController::class)->addArgument(EditPersonService::class);
-$container->add(SearchResultsController::class, SearchResultsController::class)->addArguments([FindPersonByNameService::class, FindPersonBySocialNumberService::class]);
+$container->add(AddPersonController::class, AddPersonController::class)
+    ->addArgument(AddPersonService::class);
+$container->add(DeletePersonController::class, DeletePersonController::class)
+    ->addArgument(DeletePersonService::class);
+$container->add(EditPersonController::class, EditPersonController::class)
+    ->addArgument(EditPersonService::class);
+$container->add(SearchResultsController::class, SearchResultsController::class)
+    ->addArguments([FindPersonByNameService::class, FindPersonBySocialNumberService::class]);
 $container->add(SearchPersonController::class, SearchPersonController::class);
 
 
