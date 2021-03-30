@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Repositories;
 
+use App\Models\Person;
 use Medoo\Medoo;
 
 class MySQLPersonsRepository implements PersonsRepository

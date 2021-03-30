@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Repositories;
+
+use App\Models\Person;
 
 interface PersonsRepository
 {
