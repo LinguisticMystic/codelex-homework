@@ -2,10 +2,21 @@
 
 namespace App\Controllers;
 
+use Twig\Environment;
+
 class HomeController
 {
+    private Environment $environment;
+
+    public function __construct(Environment $environment)
+    {
+        $this->environment = $environment;
+    }
+
     public function index()
     {
-        require_once __DIR__ . '/../Views/indexView.php';
+        echo $this->environment->render('indexView.php', [
+            'siteName' => 'the Civil registry'
+        ]);
     }
 }

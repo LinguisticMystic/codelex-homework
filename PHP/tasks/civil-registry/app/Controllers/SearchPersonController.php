@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 class SearchPersonController
 {
-    public function search()
+    public function index()
     {
         require_once __DIR__ . '/../Views/searchView.php';
     }

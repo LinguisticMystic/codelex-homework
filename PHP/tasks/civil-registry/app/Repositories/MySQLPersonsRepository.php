@@ -25,7 +25,9 @@ class MySQLPersonsRepository implements PersonsRepository
         $this->database->insert('persons', [
             'name' => $person->name(),
             'socnumber' => $person->socialNumber(),
-            'description' => $person->description()
+            'description' => $person->description(),
+            'age' => $person->age(),
+            'address' => $person->address(),
         ]);
     }
 
@@ -52,9 +54,39 @@ class MySQLPersonsRepository implements PersonsRepository
             'id',
             'name',
             'socnumber',
-            'description'
+            'description',
+            'age',
+            'address'
         ], [
             'name' => $name
+        ]);
+    }
+
+    public function findPersonByAge(int $age): array
+    {
+        return $this->database->select('persons', [
+            'id',
+            'name',
+            'socnumber',
+            'description',
+            'age',
+            'address'
+        ], [
+            'age' => $age
+        ]);
+    }
+
+    public function findPersonByAddress(string $address): array
+    {
+        return $this->database->select('persons', [
+            'id',
+            'name',
+            'socnumber',
+            'description',
+            'age',
+            'address'
+        ], [
+            'address' => $address
         ]);
     }
 
