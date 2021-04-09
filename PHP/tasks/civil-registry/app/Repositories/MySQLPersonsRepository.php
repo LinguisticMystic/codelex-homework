@@ -94,4 +94,14 @@ class MySQLPersonsRepository implements PersonsRepository
     {
         $this->database->update('persons', ['description' => $newDescription], ['id'=>$id]);
     }
+
+    public function findPersonByID(int $id): array
+    {
+        return $this->database->select('persons', [
+            'id',
+            'name'
+        ], [
+            'id' => $id
+        ]);
+    }
 }

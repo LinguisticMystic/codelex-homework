@@ -7,3 +7,7 @@ button {
 span {
     font-weight: bold;
 }
+
+input {
+    padding-left: 10px;
+}
