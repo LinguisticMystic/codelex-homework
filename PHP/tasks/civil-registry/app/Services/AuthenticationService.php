@@ -19,7 +19,7 @@ class AuthenticationService
 
     public function execute(): string
     {
-        $link = 'localhost:8080/auth?token=';
+        $link = $_SERVER['HTTP_HOST'] . '/auth?token=';
 
         if (!empty($_POST['authenticate'])) {
             $result = $this->personsRepository->findPersonBySocialNumber($_POST['authenticate']);

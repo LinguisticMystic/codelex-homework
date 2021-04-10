@@ -24,4 +24,10 @@ class DashboardController
             'userName' => $user[0]['name']
         ]);
     }
+
+    public function logout()
+    {
+        unset ($_SESSION['auth_id']);
+        header('Location: /');
+    }
 }

@@ -89,6 +89,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('POST', '/edit-person', [EditPersonController::class, 'editPerson']);
     $r->addRoute('GET', '/auth', [LoginController::class, 'index']);
     $r->addRoute('GET', '/dashboard', [DashboardController::class, 'index']);
+    $r->addRoute('POST', '/dashboard', [DashboardController::class, 'logout']);
 });
 
 // Fetch method and URI from somewhere
