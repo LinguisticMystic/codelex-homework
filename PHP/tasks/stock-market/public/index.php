@@ -1,6 +1,8 @@
 <?php
 
+use App\Controllers\BuyController;
 use App\Controllers\HomeController;
+use App\Controllers\SellController;
 use App\Repositories\BudgetRepository;
 use App\Repositories\JSONBudgetRepository;
 use App\Repositories\MySQLStockPortfolioRepository;
@@ -61,24 +63,32 @@ $container->add(GetSymbolService::class, GetSymbolService::class)
     ->addArgument(StockPortfolioRepository::class);
 $container->add(GetLatestPurchaseService::class, GetLatestPurchaseService::class)
     ->addArgument(StockPortfolioRepository::class);
-
+//API
 $container->add(DefaultApi::class, DefaultApi::class)
     ->addArguments([$httpClient, $config]);
-
 //Controllers
 $container->add(HomeController::class, HomeController::class)
     ->addArguments([
         $twig,
         GetBudgetService::class,
-        RemoveFundsFromBudgetService::class,
-        AddFundsToBudgetService::class,
         GetPortfolioService::class,
         GetPurchaseHistoryService::class,
         GetSellingHistoryService::class,
+        GetLatestPurchaseService::class,
+        GetSymbolService::class,
+        DefaultApi::class
+    ]);
+$container->add(BuyController::class, BuyController::class)
+    ->addArguments([
+        RemoveFundsFromBudgetService::class,
         BuyStockService::class,
+        DefaultApi::class
+    ]);
+$container->add(SellController::class, SellController::class)
+    ->addArguments([
+        AddFundsToBudgetService::class,
         SellStockService::class,
         GetSymbolService::class,
-        GetLatestPurchaseService::class,
         DefaultApi::class
     ]);
 
@@ -86,8 +96,8 @@ $container->add(HomeController::class, HomeController::class)
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/', [HomeController::class, 'index']);
     $r->addRoute('POST', '/', [HomeController::class, 'index']);
-    $r->addRoute('POST', '/buy', [HomeController::class, 'buy']);
-    $r->addRoute('POST', '/sell', [HomeController::class, 'sell']);
+    $r->addRoute('POST', '/buy', [BuyController::class, 'buy']);
+    $r->addRoute('POST', '/sell', [SellController::class, 'sell']);
 });
 
 // Fetch method and URI from somewhere

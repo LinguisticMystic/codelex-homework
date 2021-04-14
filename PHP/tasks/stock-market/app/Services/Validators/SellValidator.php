@@ -38,7 +38,7 @@ class SellValidator
             $this->addError('sellAmount', 'amount cannot be 0');
         } elseif (!is_numeric($value)) {
             $this->addError('sellAmount', 'amount must be numeric');
-        } elseif ($_POST['sellAmount'] >= $stockRepository->getAmount($stockID)[0]) {
+        } elseif ($_POST['sellAmount'] > $stockRepository->getAmount($stockID)[0]) {
             $this->addError('sellAmount', 'you cannot sell more than what you have');
         }
     }
