@@ -57,15 +57,15 @@
             <td class="px-4 py-3">{{ stock.amount }}</td>
             <td class="px-4 py-3">${{ (currentStockPrices[stock.id] / 10000)|number_format(2, '.', ',') }}</td>
 
-            {% if latestPurchases[stock.symbol] < currentStockPrices[stock.id] %}
+            {% if latestPurchases[stock.symbol] == currentStockPrices[stock.id] %}
+            <td class="px-4 py-3 text-gray-600">- {{ 0|number_format(2, '.', ',') }}</td>
+
+            {% elseif latestPurchases[stock.symbol] < currentStockPrices[stock.id] %}
             <td class="px-4 py-3 text-green-600">⬆ {{ ((currentStockPrices[stock.id] -
                 latestPurchases[stock.symbol]) / 10000)|number_format(2, '.', ',') }}
             </td>
-            {% endif %}
-            {% if latestPurchases[stock.symbol] == currentStockPrices[stock.id] %}
-            <td class="px-4 py-3 text-gray-600">- {{ 0|number_format(2, '.', ',') }}</td>
-            {% endif %}
-            {% if latestPurchases[stock.symbol] > currentStockPrices[stock.id] %}
+
+            {% else %}
             <td class="px-4 py-3 text-red-600">⬇ {{ ((latestPurchases[stock.symbol] - currentStockPrices[stock.id])
                 / 10000)|number_format(2, '.', ',') }}
             </td>
