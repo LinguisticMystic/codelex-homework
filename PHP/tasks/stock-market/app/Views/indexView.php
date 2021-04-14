@@ -18,7 +18,7 @@
 
     <form action="/buy" method="post">
         Stock symbol<input class="flex rounded-full border-grey-light border h-8" type="text" name="symbol"
-                           placeholder="AAPL" maxlength="4">
+                           placeholder="AAPL">
         Amount<input class="flex rounded-full border-grey-light border h-8" type="number" name="buyAmount"
                      placeholder="10">
         <br>

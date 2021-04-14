@@ -38,8 +38,6 @@ class BuyValidator
 
         if (empty($value)) {
             $this->addError('symbol', 'symbol field cannot be empty');
-        } elseif (strlen($value) > 4) {
-            $this->addError('symbol', 'symbol cannot exceed 4 characters');
         } elseif ($this->client->quote(strtoupper($_POST['symbol']))['c'] == 0) {
             $this->addError('symbol', 'stock symbol does not exist');
         }
