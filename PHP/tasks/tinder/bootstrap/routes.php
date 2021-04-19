@@ -1,8 +1,12 @@
 <?php
 
+use App\Controllers\ChangeMainPictureController;
 use App\Controllers\DashboardController;
+use App\Controllers\DeletePictureController;
 use App\Controllers\EditGalleryController;
+use App\Controllers\FavoritesController;
 use App\Controllers\HomeController;
+use App\Controllers\RateController;
 use App\Controllers\LoginController;
 use App\Controllers\LogoutController;
 use App\Controllers\ProfileController;
@@ -21,5 +25,9 @@ return [
     ['GET', '/dashboard', [DashboardController::class, 'index']],
     ['GET', '/profile', [ProfileController::class, 'index']],
     ['GET', '/edit-gallery', [EditGalleryController::class, 'index']],
-    ['POST', '/upload', [UploadController::class, 'upload']]
+    ['POST', '/upload', [UploadController::class, 'upload']],
+    ['POST', '/rate', [RateController::class, 'rate']],
+    ['GET', '/favorites', [FavoritesController::class, 'index']],
+    ['POST', '/delete', [DeletePictureController::class, 'delete']],
+    ['POST', '/change-main-picture', [ChangeMainPictureController::class, 'change']]
 ];

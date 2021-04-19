@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\PictureData;
+use App\Models\Rating;
 use Medoo\Medoo;
 
-class MySQLPicturesRepository implements PicturesRepository
+class MySQLRatingsRepository implements RatingsRepository
 {
     private Medoo $database;
 
@@ -20,44 +20,42 @@ class MySQLPicturesRepository implements PicturesRepository
         ]);
     }
 
-    public function addPicture(PictureData $pictureData): void
+    public function findRating(int $userID): ?bool
     {
-        $currentUserGallery = $this->listUserPictures($pictureData->userID());
-        $isMainImage = 0;
-
-        if (empty($currentUserGallery)) {
-            $isMainImage = 1;
-        }
-
-        $this->database->insert('pictures', [
-            'user_id' => $pictureData->userID(),
-            'path' => $pictureData->filePath(),
-            'original_file_name' => $pictureData->originalFileName(),
-            'is_main' => $isMainImage
-        ]);
-    }
-
-    public function listUserPictures(int $userID): array
-    {
-        return $this->database->select('pictures', [
-            'path',
-            'original_file_name',
-            'is_main'
+        $rating = $this->database->select('ratings', [
+            'rating'
         ], [
-            'user_id' => $userID
+            'rated_user_id' => $userID
+        ]);
+
+        return $rating[0]['rating'];
+    }
+
+    public function ratePicture(Rating $rating): void
+    {
+        $this->database->insert('ratings', [
+            'user_id' => $rating->userID(),
+            'rated_user_id' => $rating->ratedUserID(),
+            'rating' => $rating->rating(),
         ]);
     }
 
-    public function getPathToMainPicture(int $userID): ?string
+    public function findLikedUsers(int $userID): array
     {
-        $path = $this->database->select('pictures', [
-            'path'
+        $likedUserIDArrays = $this->database->select('ratings', [
+            'rated_user_id'
         ], [
             'user_id' => $userID,
-            'is_main' => 1
+            'rating' => 1
         ]);
 
-        return $path[0]['path'];
+        $likedUserIDs=[];
+
+        foreach ($likedUserIDArrays as $likedUserIDArray) {
+            $likedUserIDs[] = $likedUserIDArray['rated_user_id'];
+        }
+
+        return $likedUserIDs;
     }
 
 }

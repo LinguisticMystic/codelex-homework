@@ -37,12 +37,32 @@
         <br>
 
         <table class="rounded-t-lg m-5 w-full mx-auto bg-pink-500 text-white">
-                <th class="px-4 py-3">File name</th>
-                <th class="px-4 py-3">Main picture</th>
-                {% for picture in pictures %}
-            <tr class="bg-pink-100 border-b border-gray-200 text-gray-900">
+            <th class="px-4 py-3">File name</th>
+            <th class="px-4 py-3">Main picture</th>
+            <th class="px-4 py-3">Delete</th>
+            {% for picture in pictures %}
+            <tr class="bg-pink-100 border-b border-pink-200 text-gray-900">
                 <td class="px-4 py-3">{{ picture.original_file_name }}</td>
-                <td class="px-4 py-3">⭐</td>
+                {% if picture.is_main == 1 %}
+                <td class="px-4 py-3"><img class="mx-auto" src="img/star-yellow.png" width="20px"></td>
+                {% else %}
+                <td class="px-4 py-3">
+                    <form action="/change-main-picture" method="post" id="{{ picture.id }}">
+                        <button name="change[{{ picture.id }}]" type="submit">
+                            <img class="mx-auto" src="img/star-hollow.png" width="20px">
+                        </button>
+                    </form>
+                </td>
+                {% endif %}
+                <td class="px-4 py-3">
+                    <form action="/delete" method="post" id="{{ picture.id }}">
+                        <button class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-8 rounded"
+                                name="delete[{{ picture.id }}]"
+                                type="submit">
+                            Delete
+                        </button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
             </tr>

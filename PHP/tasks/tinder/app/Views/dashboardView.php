@@ -28,8 +28,31 @@
     <div class="text-center my-5">
         <a class="text-ms text-pink-900 font-bold" href=/profile>Go to profile</a>
     </div>
-    <div class="m-auto px-20 py-20 mb-20 bg-pink-50 rounded-lg shadow-lg text-center">
-        images
+    <div class="m-auto px-20 pt-10 pb-20 mb-20 bg-pink-50 rounded-lg shadow-lg text-center">
+
+        <p class="text-pink-900">{{ randomUsername }}</p>
+        <br>
+
+        {% if pathToRandomUserPicture is empty %}
+        <img src="img/empty-profile-image.png" width="400">
+        <p class="text-pink-900">User has no image :(</p>
+        {% else %}
+        <img src="profile-pictures/{{ pathToRandomUserPicture }}" width="400">
+        {% endif %}
+        <br>
+        <br>
+        <div class="flex justify-evenly">
+        <div>
+            <form action="/rate" method="post">
+                <button class="text-8xl" type="submit" name="rate" value="0-{{ randomUserID }}">👎</button>
+            </form>
+        </div>
+        <div>
+            <form action="/rate" method="post">
+                <button class="text-8xl" type="submit" name="rate" value="1-{{ randomUserID }}">👍</button>
+            </form>
+        </div>
+        </div>
     </div>
 </div>
 

@@ -2,31 +2,31 @@
 
 namespace App\Models;
 
-class User
+class Rating
 {
-    private string $username;
-    private string $sex;
-    private ?string $password;
+    private int $userID;
+    private int $ratedUserID;
+    private bool $rating;
 
-    public function __construct(string $username, string $sex, string $password)
+    public function __construct(int $userID, int $ratedUserID, bool $rating)
     {
-        $this->username = $username;
-        $this->sex = $sex;
-        $this->password = $password;
+        $this->userID = $userID;
+        $this->ratedUserID = $ratedUserID;
+        $this->rating = $rating;
     }
 
-    public function username(): string
+    public function userID(): string
     {
-        return $this->username;
+        return $this->userID;
     }
 
-    public function sex(): string
+    public function ratedUserID(): string
     {
-        return $this->sex;
+        return $this->ratedUserID;
     }
 
-    public function password(): string
+    public function rating(): string
     {
-        return $this->password;
+        return $this->rating;
     }
 }

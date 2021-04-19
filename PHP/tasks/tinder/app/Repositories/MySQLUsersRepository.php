@@ -40,25 +40,45 @@ class MySQLUsersRepository implements UsersRepository
         return $userID[0]['id'];
     }
 
-    public function findUsername(int $id): ?string
+    public function findUsername(int $userID): ?string
     {
         $username = $this->database->select('users', [
             'username'
         ], [
-            'id' => $id
+            'id' => $userID
         ]);
 
         return $username[0]['username'];
     }
 
-    public function findUserPassword(int $id): ?string
+    public function findUserPassword(int $userID): string
     {
         $username = $this->database->select('users', [
             'password'
         ], [
-            'id' => $id
+            'id' => $userID
         ]);
 
         return $username[0]['password'];
+    }
+
+    public function userSex(int $userID): string
+    {
+        $sex = $this->database->select('users', [
+            'sex'
+        ], [
+            'id' => $userID
+        ]);
+
+        return $sex[0]['sex'];
+    }
+
+    public function findUsersOfOppositeSex(string $sex): array
+    {
+        return $this->database->select('users', [
+            'id'
+        ], [
+            'sex' => $sex
+        ]);
     }
 }

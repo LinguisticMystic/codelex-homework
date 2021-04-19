@@ -2,35 +2,29 @@
 
 namespace App\Controllers;
 
-use App\Services\ListGalleryService;
-use App\Services\ShowUsernameService;
+use App\Services\GetLikedUserPicturesService;
 use Twig\Environment;
 
-class ProfileController
+class FavoritesController
 {
     private Environment $environment;
-    private ListGalleryService $galleryService;
-    private ShowUsernameService $nameService;
+    private GetLikedUserPicturesService $service;
 
     public function __construct(
         Environment $environment,
-        ListGalleryService $galleryService,
-        ShowUsernameService $nameService
+        GetLikedUserPicturesService $service
     )
     {
         $this->environment = $environment;
-        $this->galleryService = $galleryService;
-        $this->nameService = $nameService;
+        $this->service = $service;
     }
 
     public function index()
     {
-        $pictures = $this->galleryService->execute($_SESSION['auth_id']);
-        $username = $this->nameService->execute($_SESSION['auth_id']);
+        $pathsToLikedPictures = $this->service->execute($_SESSION['auth_id']);
 
-        echo $this->environment->render('profileView.php', [
-            'pictures' => $pictures,
-            'username' => $username,
+        echo $this->environment->render('favoritesView.php', [
+            'likedPictures' => $pathsToLikedPictures,
             'errors' => $_SESSION['_flash']['errors']
         ]);
     }

@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\LoginRequest;
 use App\Models\RegistrationRequest;
 use App\Services\RegisterService;
 use App\Validators\RegistrationValidator;

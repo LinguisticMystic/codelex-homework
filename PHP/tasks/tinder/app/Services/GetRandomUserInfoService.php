@@ -6,7 +6,7 @@ use App\Repositories\PicturesRepository;
 use App\Repositories\RatingsRepository;
 use App\Repositories\UsersRepository;
 
-class ShowRandomPictureService
+class GetRandomUserInfoService
 {
     private UsersRepository $usersRepository;
     private PicturesRepository $picturesRepository;
@@ -25,6 +25,24 @@ class ShowRandomPictureService
 
     public function execute(): array
     {
+        $oppositeSex = $this->determineOppositeSex();
+        $usersOfOppositeSex = $this->usersRepository->findUsersOfOppositeSex($oppositeSex);
+
+        $randomUserID = $this->pickRandomUserID($usersOfOppositeSex);
+        $previousRating = $this->ratingsRepository->findRating($randomUserID);
+
+        while ($previousRating !== null) {
+            $randomUserID = $this->pickRandomUserID($usersOfOppositeSex);
+            $previousRating = $this->ratingsRepository->findRating($randomUserID);
+        }
+
+        $randomUsername = $this->usersRepository->findUsername($randomUserID);
+
+        return [$randomUserID, $randomUsername, $this->picturesRepository->getPathToMainPicture($randomUserID)];
+    }
+
+    private function determineOppositeSex(): string
+    {
         $userSex = $this->usersRepository->userSex($_SESSION['auth_id']);
 
         if ($userSex == 'male') {
@@ -33,27 +51,7 @@ class ShowRandomPictureService
             $oppositeSex = 'male';
         }
 
-        $usersOfOppositeSex = $this->usersRepository->findUsersOfOppositeSex($oppositeSex);
-
-        //pick random
-        $randomUserID = $this->pickRandomUserID($usersOfOppositeSex);
-        //check previous rating
-        $previousRating = $this->ratingsRepository->findRating($randomUserID);
-
-//        while (!empty($previousRating)) {
-//            $randomUserID = $this->pickRandomUserID($usersOfOppositeSex);
-//            $previousRating = $this->ratingsRepository->findRating($randomUserID);
-//        }
-
-//        if (!$previousRating) {
-//            //return ID
-//        } else {
-//            //pick another random ID
-//            $randomUserID = $this->pickRandomUserID($usersOfOppositeSex);
-//            //check...
-//        }
-
-        return [$randomUserID, $this->picturesRepository->getPathToMainPicture($randomUserID)];
+        return $oppositeSex;
     }
 
     private function pickRandomUserID(array $users): int

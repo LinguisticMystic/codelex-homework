@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Repositories\UsersRepository;
 
-class ShowUserameService
+class ShowUsernameService
 {
     private UsersRepository $usersRepository;
 

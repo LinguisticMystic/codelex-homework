@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\PictureData;
-
-interface PicturesRepository
+interface RatingsRepository
 {
-    public function addPicture(PictureData $pictureData): void;
+
 }

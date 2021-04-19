@@ -2,26 +2,23 @@
 
 namespace App\Controllers;
 
-use App\Services\LikeService;
+use App\Services\RateService;
 
-class LikeController
+class RateController
 {
-    private LikeService $service;
+    private RateService $service;
 
     public function __construct(
-        LikeService $service
+        RateService $service
     )
     {
         $this->service = $service;
     }
 
-    public function like()
+    public function rate()
     {
-        var_dump('image liked');
-        var_dump($_POST);
-        $rating = $this->service->execute();
+        $this->service->execute();
 
-        var_dump($rating);
-        //header('Location: /dashboard');
+        header('Location: /dashboard');
     }
 }
