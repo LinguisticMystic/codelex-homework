@@ -28,7 +28,9 @@ class RegistrationValidator extends LoginValidator
         $value = $this->postData['confirmPassword'];
 
         if (empty($value)) {
-            $this->addError('sex', 'please confirm password');
+            $this->addError('confirmPassword', 'please confirm password');
+        } elseif ($value != $this->postData['password']) {
+            $this->addError('confirmPassword', 'passwords don\'t match');
         }
     }
 
