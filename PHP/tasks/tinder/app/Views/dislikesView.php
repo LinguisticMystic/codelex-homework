@@ -38,7 +38,7 @@
             <p class="text-ms text-pink-900">You haven't disliked any pictures yet.</p>
             {% else %}
             {% for picture in dislikedPictures %}
-            <img src="profile-pictures/{{ picture.path }}" width="200">
+            <a href=/user/{{ picture.user_id }}><img src="profile-pictures/{{ picture.path }}" width="200"></a>
             {% endfor %}
             {% endif %}
         </div>

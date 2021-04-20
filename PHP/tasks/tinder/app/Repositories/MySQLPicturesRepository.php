@@ -64,6 +64,7 @@ class MySQLPicturesRepository implements PicturesRepository
     public function getPathsToPictures(array $userIDs): array
     {
         $paths = $this->database->select('pictures', [
+            'user_id',
             'path'
         ], [
             'user_id' => array_values($userIDs),
