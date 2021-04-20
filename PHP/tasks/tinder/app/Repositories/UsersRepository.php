@@ -9,4 +9,7 @@ interface UsersRepository
     public function addUser(User $user): void;
     public function findUserID(string $username): ?int;
     public function findUsername(int $id): ?string;
+    public function findUserPassword(int $userID): string;
+    public function userSex(int $userID): string;
+    public function pickOppositeSexUsers(int $userID, string $sex);
 }
