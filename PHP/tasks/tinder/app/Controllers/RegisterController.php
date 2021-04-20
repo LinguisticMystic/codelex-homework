@@ -27,17 +27,13 @@ class RegisterController
 
     public function register()
     {
-        //validate post
         $validator = new RegistrationValidator($_POST);
         $_SESSION['_flash']['errors'] = $validator->validateFields();
 
         if (empty($_SESSION['_flash']['errors'])) {
 
             $request = new RegistrationRequest($_POST['username'], $_POST['sex'], $_POST['password']);
-
-            $this->service->execute($request);
-
-            header('Location: /complete');
+            $this->service->execute($request) ? header('Location: /complete') : header('Location: /register');
 
         } else {
             header('Location: /register');

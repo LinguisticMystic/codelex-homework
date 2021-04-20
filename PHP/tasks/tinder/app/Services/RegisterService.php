@@ -13,10 +13,16 @@ class RegisterService
         $this->repository = $repository;
     }
 
-    public function execute(RegistrationRequest $request): void
+    public function execute(RegistrationRequest $request): bool
     {
         $newUser = new User($request->username(), $request->sex(), $request->password());
 
-        $this->repository->addUser($newUser);
+        if ($this->repository->usernameExists($newUser->username())) {
+            $_SESSION['_flash']['errors']['username'] = 'User already exists';
+            return false;
+        } else {
+            $this->repository->addUser($newUser);
+            return true;
+        }
     }
 }
