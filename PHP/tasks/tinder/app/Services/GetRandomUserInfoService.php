@@ -27,13 +27,13 @@ class GetRandomUserInfoService
     {
         $oppositeSex = $this->determineOppositeSex();
 
-        $randomUserArray = $this->usersRepository->pickRandomUserID($userID, $oppositeSex);
+        $oppositeSexUsers = $this->usersRepository->pickOppositeSexUsers($userID, $oppositeSex);
 
-        if (empty($randomUserArray)) {
+        if (empty($oppositeSexUsers)) {
             return [];
         }
 
-        $randomUserID = $randomUserArray[rand(0, count($randomUserArray) - 1)]['id'];
+        $randomUserID = $oppositeSexUsers[rand(0, count($oppositeSexUsers) - 1)]['id'];
 
         $randomUsername = $this->usersRepository->findUsername($randomUserID);
 

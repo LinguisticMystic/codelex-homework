@@ -73,7 +73,7 @@ class MySQLUsersRepository implements UsersRepository
         return $sex[0]['sex'];
     }
 
-    public function pickRandomUserID(int $userID, string $sex)
+    public function pickOppositeSexUsers(int $userID, string $sex)
     {
         //select users of opposite sex, that are not rated, that have a picture
         //SELECT id FROM users WHERE $sex = 'male'
