@@ -3,24 +3,20 @@
 namespace App\Services;
 
 use App\Repositories\PicturesRepository;
-use App\Repositories\RatingsRepository;
 use App\Repositories\UsersRepository;
 
 class GetRandomUserInfoService
 {
     private UsersRepository $usersRepository;
     private PicturesRepository $picturesRepository;
-    private RatingsRepository $ratingsRepository;
 
     public function __construct(
         UsersRepository $usersRepository,
-        PicturesRepository $picturesRepository,
-        RatingsRepository $ratingsRepository
+        PicturesRepository $picturesRepository
     )
     {
         $this->usersRepository = $usersRepository;
         $this->picturesRepository = $picturesRepository;
-        $this->ratingsRepository = $ratingsRepository;
     }
 
     public function execute($userID): array

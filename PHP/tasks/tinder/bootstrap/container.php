@@ -46,7 +46,7 @@ $container->add(LogoutService::class, LogoutService::class);
 $container->add(RegisterService::class, RegisterService::class)
     ->addArgument(UsersRepository::class);
 $container->add(GetRandomUserInfoService::class, GetRandomUserInfoService::class)
-    ->addArguments([UsersRepository::class, PicturesRepository::class, RatingsRepository::class]);
+    ->addArguments([UsersRepository::class, PicturesRepository::class]);
 $container->add(UploadService::class, UploadService::class)
     ->addArgument(PicturesRepository::class);
 $container->add(ListGalleryService::class, ListGalleryService::class)
