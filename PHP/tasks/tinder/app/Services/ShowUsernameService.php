@@ -15,6 +15,6 @@ class ShowUsernameService
 
     public function execute(int $userID): ?string
     {
-        return $this->usersRepository->findUsername($userID);
+        return $this->usersRepository->findUsernameByID($userID);
     }
 }

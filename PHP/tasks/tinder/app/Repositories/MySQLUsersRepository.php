@@ -40,7 +40,7 @@ class MySQLUsersRepository implements UsersRepository
         return $userID[0]['id'];
     }
 
-    public function findUsername(int $userID): ?string
+    public function findUsernameByID(int $userID): ?string
     {
         $username = $this->database->select('users', [
             'username'

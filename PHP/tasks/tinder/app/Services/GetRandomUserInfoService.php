@@ -35,7 +35,7 @@ class GetRandomUserInfoService
 
         $randomUserID = $oppositeSexUsers[rand(0, count($oppositeSexUsers) - 1)]['id'];
 
-        $randomUsername = $this->usersRepository->findUsername($randomUserID);
+        $randomUsername = $this->usersRepository->findUsernameByID($randomUserID);
 
         return [$randomUserID, $randomUsername, $this->picturesRepository->getPathToMainPicture($randomUserID)];
     }
