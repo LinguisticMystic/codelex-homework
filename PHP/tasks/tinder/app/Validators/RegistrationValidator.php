@@ -6,7 +6,7 @@ class RegistrationValidator extends LoginValidator
 {
     protected static array $fields = ['username', 'sex', 'password', 'confirmPassword'];
 
-    protected function validateForm()
+    protected function validateForm(): void
     {
         $this->validateUsername();
         $this->validatePassword();
@@ -14,7 +14,7 @@ class RegistrationValidator extends LoginValidator
         $this->validateConfirmPassword();
     }
 
-    protected function validateSex()
+    protected function validateSex(): void
     {
         $value = $this->postData['sex'];
 
@@ -23,7 +23,7 @@ class RegistrationValidator extends LoginValidator
         }
     }
 
-    protected function validateConfirmPassword()
+    protected function validateConfirmPassword(): void
     {
         $value = $this->postData['confirmPassword'];
 
@@ -31,4 +31,5 @@ class RegistrationValidator extends LoginValidator
             $this->addError('sex', 'please confirm password');
         }
     }
+
 }
