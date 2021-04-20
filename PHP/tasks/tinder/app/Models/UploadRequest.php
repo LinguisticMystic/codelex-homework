@@ -58,6 +58,7 @@ class UploadRequest
     {
         return substr(time(), 0, 2) . '/' .
                substr(time(), 2, 2) . '/' .
-               substr(time(), 4);
+               substr(time(), 4, 2) . '/' .
+               substr(time(), 6);
     }
 }

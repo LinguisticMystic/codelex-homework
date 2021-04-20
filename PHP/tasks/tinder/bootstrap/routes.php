@@ -3,6 +3,7 @@
 use App\Controllers\ChangeMainPictureController;
 use App\Controllers\DashboardController;
 use App\Controllers\DeletePictureController;
+use App\Controllers\DislikesController;
 use App\Controllers\EditGalleryController;
 use App\Controllers\FavoritesController;
 use App\Controllers\HomeController;
@@ -13,6 +14,7 @@ use App\Controllers\ProfileController;
 use App\Controllers\RegisterController;
 use App\Controllers\RegistrationCompleteController;
 use App\Controllers\UploadController;
+use App\Controllers\ViewUserProfileController;
 
 return [
     ['GET', '/', [HomeController::class, 'index']],
@@ -28,6 +30,8 @@ return [
     ['POST', '/upload', [UploadController::class, 'upload']],
     ['POST', '/rate', [RateController::class, 'rate']],
     ['GET', '/favorites', [FavoritesController::class, 'index']],
+    ['GET', '/dislikes', [DislikesController::class, 'index']],
     ['POST', '/delete', [DeletePictureController::class, 'delete']],
-    ['POST', '/change-main-picture', [ChangeMainPictureController::class, 'change']]
+    ['POST', '/change-main-picture', [ChangeMainPictureController::class, 'change']],
+    ['GET', '/user/{id:\d+}', [ViewUserProfileController::class, 'view']]
 ];

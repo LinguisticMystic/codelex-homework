@@ -61,12 +61,12 @@ class MySQLPicturesRepository implements PicturesRepository
         return $path[0]['path'];
     }
 
-    public function getPathsToLikedPictures(array $likedUserIDs): array
+    public function getPathsToPictures(array $userIDs): array
     {
         $paths = $this->database->select('pictures', [
             'path'
         ], [
-            'user_id' => array_values($likedUserIDs),
+            'user_id' => array_values($userIDs),
             'is_main' => 1
         ]);
 

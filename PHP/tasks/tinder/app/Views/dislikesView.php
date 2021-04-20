@@ -26,31 +26,21 @@
 
 <div class="container mx-auto flex content-center flex-col">
     <div class="text-center my-5">
-        <a class="text-ms text-pink-900 font-bold" href=/dashboard>Back to user gallery</a>
+        <a class="text-ms text-pink-900 font-bold" href=/profile>Go to profile</a>
     </div>
     <div class="m-auto px-20 pt-10 pb-20 mb-20 bg-pink-50 rounded-lg shadow-lg text-center">
-        {% if pictures is empty %}
-        <img class="mx-auto rounded-full" src="img/empty-profile-image.png" width="200">
-        {% else %}
-        {% for picture in pictures %}
-        {% if picture.is_main == 1 %}
-        <img class="mx-auto rounded-full" src="profile-pictures/{{ picture.path }}" width="200">
-        {% endif %}
-        {% endfor %}
-        {% endif %}
 
-        <p>Hi, {{ username }}!</p>
-
-        <div><a class="text-pink-900" href=/edit-gallery>Add & remove pictures</a></div>
-        <div><a class="text-pink-900" href=/favorites>View liked pictures</a></div>
-        <div><a class="text-pink-900" href=/dislikes>View disliked pictures</a></div>
+        <p class="text-2xl text-pink-900">Your disliked pictures</p>
+        <br>
 
         <div class="grid grid-flow-col auto-cols-max gap-4">
-            {% for picture in pictures %}
-            {% if picture.is_main == 0 %}
+            {% if dislikedPictures is empty %}
+            <p class="text-ms text-pink-900">You haven't disliked any pictures yet.</p>
+            {% else %}
+            {% for picture in dislikedPictures %}
             <img src="profile-pictures/{{ picture.path }}" width="200">
-            {% endif %}
             {% endfor %}
+            {% endif %}
         </div>
 
     </div>

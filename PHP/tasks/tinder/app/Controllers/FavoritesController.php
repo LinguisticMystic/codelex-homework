@@ -24,8 +24,7 @@ class FavoritesController
         $pathsToLikedPictures = $this->service->execute($_SESSION['auth_id']);
 
         echo $this->environment->render('favoritesView.php', [
-            'likedPictures' => $pathsToLikedPictures,
-            'errors' => $_SESSION['_flash']['errors']
+            'likedPictures' => $pathsToLikedPictures
         ]);
     }
 }

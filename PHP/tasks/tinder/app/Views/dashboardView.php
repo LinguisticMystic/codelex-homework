@@ -30,15 +30,15 @@
     </div>
     <div class="m-auto px-20 pt-10 pb-20 mb-20 bg-pink-50 rounded-lg shadow-lg text-center">
 
-        <p class="text-pink-900">{{ randomUsername }}</p>
-        <br>
-
-        {% if pathToRandomUserPicture is empty %}
-        <img src="img/empty-profile-image.png" width="400">
-        <p class="text-pink-900">User has no image :(</p>
+        {%if ( randomUsername is empty ) and ( randomUserID is empty ) and  ( pathToRandomUserPicture is empty ) %}
+        <p class="text-pink-900">Nothing to show.</p>
+        <p class="text-pink-900">You have rated every user there is to rate.</p>
         {% else %}
+
+        <a class="text-pink-900" href=/user/{{ randomUserID }}>{{ randomUsername }}</a>
+        <br>
+        <br>
         <img src="profile-pictures/{{ pathToRandomUserPicture }}" width="400">
-        {% endif %}
         <br>
         <br>
         <div class="flex justify-evenly">
@@ -53,6 +53,9 @@
             </form>
         </div>
         </div>
+
+        {% endif %}
+
     </div>
 </div>
 

@@ -73,12 +73,59 @@ class MySQLUsersRepository implements UsersRepository
         return $sex[0]['sex'];
     }
 
-    public function findUsersOfOppositeSex(string $sex): array
+    public function pickRandomUserID(int $userID, string $sex)
     {
+        //select users of opposite sex, that are not rated, that have a picture
+        //SELECT id FROM users WHERE $sex = 'male'
+        //AND id IN (SELECT user_id FROM pictures);
+        //AND id NOT IN (SELECT rated_user_id FROM ratings WHERE user_id = $userID)
+
+        $ratedUsers = $this->ratedUserIDs($userID);
+        $usersWithPicture = $this->userIDsWithPicture();
+
+        if (empty($ratedUsers)) {
+            return $this->database->select('users', [
+                'id'
+            ], [
+                'sex' => $sex,
+                'id' => $usersWithPicture
+            ]);
+        }
+
         return $this->database->select('users', [
             'id'
         ], [
-            'sex' => $sex
+            'sex' => $sex,
+            'id' => $usersWithPicture,
+            'id[!]' => $ratedUsers
         ]);
+    }
+
+    private function ratedUserIDs($userID): array
+    {
+        $ratedUsersArray = $this->database->select('ratings', [
+            'rated_user_id'
+        ], [
+            'user_id' => $userID
+        ]);
+
+        $ratedUsers = [];
+        foreach ($ratedUsersArray as $ratedUserArray) {
+            $ratedUsers[] = $ratedUserArray['rated_user_id'];
+        }
+
+        return $ratedUsers;
+    }
+
+    private function userIDsWithPicture(): array
+    {
+        $usersArray = $this->database->select('pictures', 'user_id');
+
+        $usersWithPicture = [];
+        foreach ($usersArray as $userArray) {
+            $usersWithPicture[] = $userArray['user_id'];
+        }
+
+        return $usersWithPicture;
     }
 }

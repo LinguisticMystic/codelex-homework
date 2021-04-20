@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Repositories\PicturesRepository;
 use App\Repositories\RatingsRepository;
 
-class GetLikedUserPicturesService
+class GetDislikedUserPicturesService
 {
     private PicturesRepository $picturesRepository;
     private RatingsRepository $ratingsRepository;
@@ -21,7 +21,7 @@ class GetLikedUserPicturesService
 
     public function execute(int $userID): array
     {
-        $rating = 1;
+        $rating = 0;
         $likedUserIDs = $this->ratingsRepository->findUsersByRating($userID, $rating);
 
         return $this->picturesRepository->getPathsToPictures($likedUserIDs);

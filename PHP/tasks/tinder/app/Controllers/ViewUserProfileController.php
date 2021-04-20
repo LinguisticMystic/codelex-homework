@@ -6,7 +6,7 @@ use App\Services\ListGalleryService;
 use App\Services\ShowUsernameService;
 use Twig\Environment;
 
-class ProfileController
+class ViewUserProfileController
 {
     private Environment $environment;
     private ListGalleryService $galleryService;
@@ -23,12 +23,12 @@ class ProfileController
         $this->nameService = $nameService;
     }
 
-    public function index()
+    public function view(array $vars)
     {
-        $pictures = $this->galleryService->execute($_SESSION['auth_id']);
-        $username = $this->nameService->execute($_SESSION['auth_id']);
+        $pictures = $this->galleryService->execute($vars['id']);
+        $username = $this->nameService->execute($vars['id']);
 
-        echo $this->environment->render('profileView.php', [
+        echo $this->environment->render('userProfileView.php', [
             'pictures' => $pictures,
             'username' => $username
         ]);

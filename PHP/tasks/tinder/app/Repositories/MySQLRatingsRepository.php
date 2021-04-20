@@ -20,17 +20,6 @@ class MySQLRatingsRepository implements RatingsRepository
         ]);
     }
 
-    public function findRating(int $userID): ?bool
-    {
-        $rating = $this->database->select('ratings', [
-            'rating'
-        ], [
-            'rated_user_id' => $userID
-        ]);
-
-        return $rating[0]['rating'];
-    }
-
     public function ratePicture(Rating $rating): void
     {
         $this->database->insert('ratings', [
@@ -40,13 +29,13 @@ class MySQLRatingsRepository implements RatingsRepository
         ]);
     }
 
-    public function findLikedUsers(int $userID): array
+    public function findUsersByRating(int $userID, $rating): array
     {
         $likedUserIDArrays = $this->database->select('ratings', [
             'rated_user_id'
         ], [
             'user_id' => $userID,
-            'rating' => 1
+            'rating' => $rating
         ]);
 
         $likedUserIDs=[];

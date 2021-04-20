@@ -18,7 +18,7 @@ class DashboardController
 
     public function index()
     {
-        $randomUserInfo = $this->service->execute();
+        $randomUserInfo = $this->service->execute($_SESSION['auth_id']);
 
         $randomUserID = $randomUserInfo[0];
         $randomUsername = $randomUserInfo[1];
@@ -27,8 +27,7 @@ class DashboardController
         echo $this->environment->render('dashboardView.php', [
             'randomUserID' => $randomUserID,
             'randomUsername' => $randomUsername,
-            'pathToRandomUserPicture' => $pathToRandomUserPicture,
-            'errors' => $_SESSION['_flash']['errors']
+            'pathToRandomUserPicture' => $pathToRandomUserPicture
         ]);
     }
 }

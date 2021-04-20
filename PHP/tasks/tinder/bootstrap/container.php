@@ -3,6 +3,7 @@
 use App\Controllers\ChangeMainPictureController;
 use App\Controllers\DashboardController;
 use App\Controllers\DeletePictureController;
+use App\Controllers\DislikesController;
 use App\Controllers\EditGalleryController;
 use App\Controllers\FavoritesController;
 use App\Controllers\HomeController;
@@ -13,6 +14,7 @@ use App\Controllers\ProfileController;
 use App\Controllers\RegisterController;
 use App\Controllers\RegistrationCompleteController;
 use App\Controllers\UploadController;
+use App\Controllers\ViewUserProfileController;
 use App\Repositories\MySQLPicturesRepository;
 use App\Repositories\MySQLRatingsRepository;
 use App\Repositories\MySQLUsersRepository;
@@ -21,6 +23,7 @@ use App\Repositories\RatingsRepository;
 use App\Repositories\UsersRepository;
 use App\Services\ChangeMainPictureService;
 use App\Services\DeletePictureService;
+use App\Services\GetDislikedUserPicturesService;
 use App\Services\GetLikedUserPicturesService;
 use App\Services\GetRandomUserInfoService;
 use App\Services\RateService;
@@ -52,8 +55,10 @@ $container->add(ShowUsernameService::class, ShowUsernameService::class)
     ->addArgument(UsersRepository::class);
 $container->add(RateService::class, RateService::class)
     ->addArgument(RatingsRepository::class);
+$container->add(GetDislikedUserPicturesService::class, GetDislikedUserPicturesService::class)
+    ->addArguments([PicturesRepository::class, RatingsRepository::class]);
 $container->add(GetLikedUserPicturesService::class, GetLikedUserPicturesService::class)
-    ->addArguments([UsersRepository::class, PicturesRepository::class, RatingsRepository::class]);
+    ->addArguments([PicturesRepository::class, RatingsRepository::class]);
 $container->add(DeletePictureService::class, DeletePictureService::class)
     ->addArgument(PicturesRepository::class);
 $container->add(ChangeMainPictureService::class, ChangeMainPictureService::class)
@@ -81,9 +86,13 @@ $container->add(RateController::class, RateController::class)
     ->addArgument(RateService::class);
 $container->add(FavoritesController::class, FavoritesController::class)
     ->addArguments([$twig, GetLikedUserPicturesService::class]);
+$container->add(DislikesController::class, DislikesController::class)
+    ->addArguments([$twig, GetDislikedUserPicturesService::class]);
 $container->add(DeletePictureController::class, DeletePictureController::class)
     ->addArgument(DeletePictureService::class);
 $container->add(ChangeMainPictureController::class, ChangeMainPictureController::class)
     ->addArgument(ChangeMainPictureService::class);
+$container->add(ViewUserProfileController::class, ViewUserProfileController::class)
+    ->addArguments([$twig, ListGalleryService::class, ShowUsernameService::class]);
 
 return $container;

@@ -30,8 +30,11 @@
     </div>
     <div class="m-auto px-20 pt-10 pb-20 mb-20 bg-pink-50 rounded-lg shadow-lg text-center">
 
+        <p class="text-2xl text-pink-900">Your liked pictures</p>
+        <br>
+
         <div class="grid grid-flow-col auto-cols-max gap-4">
-            {% if pictures is empty %}
+            {% if likedPictures is empty %}
             <p class="text-ms text-pink-900">You haven't liked any pictures yet.</p>
             {% else %}
             {% for picture in likedPictures %}

@@ -42,13 +42,5 @@ class RegisterController
         } else {
             header('Location: /register');
         }
-
-
-
-//        $request = new RegistrationRequest($_POST['username'], $_POST['sex'], $_POST['password']);
-//
-//        $this->service->execute($request);
-//
-//        header('Location: /complete');
     }
 }

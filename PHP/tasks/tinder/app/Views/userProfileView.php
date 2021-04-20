@@ -13,7 +13,7 @@
 
 <div class="flex">
     <div class="flex-1 bg-pink-50 px-1 py-1">
-        <a href="/"><img src="img/tinder-logo.png" width="130"></a>
+        <a href="/"><img src="../img/tinder-logo.png" width="130"></a>
     </div>
     <div class="flex-1 bg-pink-50">
     </div>
@@ -30,25 +30,22 @@
     </div>
     <div class="m-auto px-20 pt-10 pb-20 mb-20 bg-pink-50 rounded-lg shadow-lg text-center">
         {% if pictures is empty %}
-        <img class="mx-auto rounded-full" src="img/empty-profile-image.png" width="200">
+        <img class="mx-auto rounded-full" src="../img/empty-profile-image.png" width="200">
         {% else %}
         {% for picture in pictures %}
         {% if picture.is_main == 1 %}
-        <img class="mx-auto rounded-full" src="profile-pictures/{{ picture.path }}" width="200">
+        <img class="mx-auto rounded-full" src="../profile-pictures/{{ picture.path }}" width="200">
         {% endif %}
         {% endfor %}
         {% endif %}
 
-        <p>Hi, {{ username }}!</p>
-
-        <div><a class="text-pink-900" href=/edit-gallery>Add & remove pictures</a></div>
-        <div><a class="text-pink-900" href=/favorites>View liked pictures</a></div>
-        <div><a class="text-pink-900" href=/dislikes>View disliked pictures</a></div>
+        <p>{{ username }}</p>
+        <br>
 
         <div class="grid grid-flow-col auto-cols-max gap-4">
             {% for picture in pictures %}
             {% if picture.is_main == 0 %}
-            <img src="profile-pictures/{{ picture.path }}" width="200">
+            <img src="../profile-pictures/{{ picture.path }}" width="200">
             {% endif %}
             {% endfor %}
         </div>

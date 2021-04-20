@@ -23,18 +23,17 @@ class GetRandomUserInfoService
         $this->ratingsRepository = $ratingsRepository;
     }
 
-    public function execute(): array
+    public function execute($userID): array
     {
         $oppositeSex = $this->determineOppositeSex();
-        $usersOfOppositeSex = $this->usersRepository->findUsersOfOppositeSex($oppositeSex);
 
-        $randomUserID = $this->pickRandomUserID($usersOfOppositeSex);
-        $previousRating = $this->ratingsRepository->findRating($randomUserID);
+        $randomUserArray = $this->usersRepository->pickRandomUserID($userID, $oppositeSex);
 
-        while ($previousRating !== null) {
-            $randomUserID = $this->pickRandomUserID($usersOfOppositeSex);
-            $previousRating = $this->ratingsRepository->findRating($randomUserID);
+        if (empty($randomUserArray)) {
+            return [];
         }
+
+        $randomUserID = $randomUserArray[rand(0, count($randomUserArray) - 1)]['id'];
 
         $randomUsername = $this->usersRepository->findUsername($randomUserID);
 
@@ -52,12 +51,6 @@ class GetRandomUserInfoService
         }
 
         return $oppositeSex;
-    }
-
-    private function pickRandomUserID(array $users): int
-    {
-        $randomNumber = rand(0, count($users) - 1);
-        return $users[$randomNumber]['id'];
     }
 
 }
