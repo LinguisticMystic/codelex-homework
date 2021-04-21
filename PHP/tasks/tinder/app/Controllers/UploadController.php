@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UploadRequest;
 use App\Services\UploadService;
+use App\Validators\UploadValidator;
 
 class UploadController
 {
@@ -14,19 +15,24 @@ class UploadController
 
     public function upload()
     {
-        //validate empty file
-        //validate file size
-        //validate file type
+        $validator = new UploadValidator($_FILES);
+        $_SESSION['_flash']['errors'] = $validator->validate();
 
-        $request = new UploadRequest(
-            $_SESSION['auth_id'],
-            $_FILES['file']['type'],
-            $_FILES['file']['name'],
-            $_FILES['file']['tmp_name']
-        );
+        if (empty($_SESSION['_flash']['errors'])) {
 
-        $this->uploadService->execute($request);
+            $request = new UploadRequest(
+                $_SESSION['auth_id'],
+                $_FILES['file']['type'],
+                $_FILES['file']['name'],
+                $_FILES['file']['tmp_name']
+            );
 
-        header('Location: /edit-gallery');
+            $this->uploadService->execute($request);
+
+            header('Location: /edit-gallery');
+
+        } else {
+            header('Location: /edit-gallery');
+        }
     }
 }

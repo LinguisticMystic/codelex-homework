@@ -34,6 +34,9 @@
             <button class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-8 rounded" type="submit">Upload
             </button>
         </form>
+        {% for error in errors %}
+        <p class="text-red-700">{{ error|capitalize }}</p>
+        {% endfor %}
         <br>
 
         <table class="rounded-t-lg m-5 w-full mx-auto bg-pink-500 text-white">

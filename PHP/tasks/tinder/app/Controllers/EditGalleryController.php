@@ -21,7 +21,8 @@ class EditGalleryController
         $pictures = $this->service->execute($_SESSION['auth_id']);
 
         echo $this->environment->render('editGalleryView.php', [
-            'pictures' => $pictures
+            'pictures' => $pictures,
+            'errors' => $_SESSION['_flash']['errors']
         ]);
     }
 }
