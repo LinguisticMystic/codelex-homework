@@ -130,13 +130,6 @@ class MySQLUsersRepository implements UsersRepository
 
     private function userIDsWithPicture(): array
     {
-        $usersArray = $this->database->select('pictures', 'user_id');
-
-        $usersWithPicture = [];
-        foreach ($usersArray as $userArray) {
-            $usersWithPicture[] = $userArray['user_id'];
-        }
-
-        return $usersWithPicture;
+        return $this->database->select('pictures', 'user_id');
     }
 }
